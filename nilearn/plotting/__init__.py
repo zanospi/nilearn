@@ -31,6 +31,7 @@ def _set_mpl_backend():
         _import_module_with_version_check('matplotlib',
                                           OPTIONAL_MATPLOTLIB_MIN_VERSION)
 
+
 _set_mpl_backend()
 
 ###############################################################################
@@ -41,13 +42,15 @@ from . import cm
 from .img_plotting import plot_img, plot_anat, plot_epi, \
     plot_roi, plot_stat_map, plot_glass_brain, plot_connectome, \
     plot_prob_atlas, show
-from .find_cuts import find_xyz_cut_coords, find_cut_slices
-from .matrix_plotting import plot_matrix
+from .find_cuts import find_xyz_cut_coords, find_cut_slices, \
+    find_parcellation_cut_coords, find_probabilistic_atlas_cut_coords
+
 __all__ = ['cm', 'plot_img', 'plot_anat', 'plot_epi',
            'plot_roi', 'plot_stat_map', 'plot_glass_brain',
-           'plot_connectome', 'plot_prob_atlas',
+           'plot_connectome', 'plot_prob_atlas', 'show',
            'find_xyz_cut_coords', 'find_cut_slices',
-           'show', 'plot_matrix']
+           'find_parcellation_cut_coords',
+           'find_probabilistic_atlas_cut_coords']
 
 # matplotlib older versions 1.1.1 will not work to plot surface data using
 # plotting functions from surf_plotting.py. Hence we check the version and
@@ -56,3 +59,4 @@ __all__ = ['cm', 'plot_img', 'plot_anat', 'plot_epi',
 if LooseVersion(matplotlib.__version__) > LooseVersion('1.3.1'):
     from .surf_plotting import plot_surf, plot_surf_stat_map, plot_surf_roi
     __all__.extend(['plot_surf', 'plot_surf_stat_map', 'plot_surf_roi'])
+

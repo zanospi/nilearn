@@ -313,6 +313,9 @@ uses.
    plot_glass_brain
    plot_connectome
    plot_prob_atlas
+   find_xyz_cut_coords
+   find_parcellation_atlas_cut_coords
+   find_probabilistic_atlas_cut_coords
    plot_surf
    plot_surf_roi
    plot_surf_stat_map
