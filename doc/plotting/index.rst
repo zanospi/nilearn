@@ -166,6 +166,10 @@ Different display modes
      :target: ../auto_examples/01_plotting/plot_demo_more_plotting.html
      :scale: 50
 
+.. |plot_tiled| image:: ../auto_examples/01_plotting/images/sphx_glr_plot_demo_more_plotting_009.png
+     :target: ../auto_examples/01_plotting/plot_demo_more_plotting.html
+     :scale: 50
+
 .. |plot_lzr| image:: ../auto_examples/01_plotting/images/sphx_glr_plot_demo_glass_brain_extensive_006.png
      :target: ../auto_examples/01_plotting/plot_demo_glass_brain_extensive.html
      :scale: 50
@@ -216,6 +220,11 @@ Different display modes
                    Cutting in the y and z direction, with cuts manually
                    positionned
 
+|plot_tiled|       `display_mode='tiled', cut_coords=[36, -27, 60]`
+                   |hack|
+                   Tiled slicer: 3 cuts along the x, y, z directions,
+                   arranged in a 2x2 grid
+
 |plot_lzr|         `Glass brain display_mode='lzr'`
                    |hack|
                    Glass brain and Connectome provide additional display modes
@@ -250,8 +259,8 @@ These colormaps can be used as any other matplotlib colormap.
 
 .. _display_modules:
 
-Adding overlays, edges, contours, contour fillings and markers
-==============================================================
+Adding overlays, edges, contours, contour fillings, markers, scale bar
+=======================================================================
 
 To add overlays, contours, or edges, use the return value of the plotting
 functions. Indeed, these return a display object, such as the
@@ -278,6 +287,10 @@ plot, and has methods to add overlays, contours or edge maps::
 
 .. |plot_overlay| image:: ../auto_examples/01_plotting/images/sphx_glr_plot_overlay_002.png
      :target: ../auto_examples/01_plotting/plot_overlay.html
+     :scale: 50
+
+.. |plot_scalebar| image:: ../auto_examples/01_plotting/images/sphx_glr_plot_demo_more_plotting_013.png
+     :target: ../auto_examples/01_plotting/plot_demo_more_plotting.html
      :scale: 50
 
 ================= =========================================================
@@ -316,6 +329,13 @@ plot, and has methods to add overlays, contours or edge maps::
                   based regions specific interpretation of brain images.
                   |hack|
                   **Example:** :ref:`sphx_glr_auto_examples_03_connectivity_plot_seed_to_voxel_correlation.py`
+
+|plot_scalebar|   `display.annotate(scalebar=True)`
+                  |hack|
+                  Adds annotations such as a scale bar, or the cross of
+                  the cut coordinates
+                  |hack|
+                  **Example:** :ref:`sphx_glr_auto_examples_01_plotting_plot_demo_more_plotting.py`
 
 ================= =========================================================
 
@@ -417,7 +437,7 @@ use :func:`view_markers`.
 :func:`view_img_on_surf`: Surface plot using a 3D statistical map::
 
     >>> from nilearn import plotting, datasets     # doctest: +SKIP
-    >>> img = datasets.fetch_localizer_button_task()['tmaps'][0]     # doctest: +SKIP
+    >>> img = datasets.fetch_localizer_button_task()['tmap']     # doctest: +SKIP
     >>> view = plotting.view_img_on_surf(img, threshold='90%', surf_mesh='fsaverage')     # doctest: +SKIP
 
 If you are running a notebook, displaying ``view`` will embed an interactive
@@ -490,17 +510,21 @@ Or you can save it to an html file::
 Interactive visualization of statistical map slices
 ---------------------------------------------------
 
-:func:`view_stat_map`: open stat map in a Papaya viewer (https://github.com/rii-mango/Papaya)::
+:func:`view_img`: open stat map in a Brainsprite viewer (https://github.com/simexp/brainsprite.js)::
 
     >>> from nilearn import plotting, datasets     # doctest: +SKIP
-    >>> img = datasets.fetch_localizer_button_task()['tmaps'][0]     # doctest: +SKIP
-    >>> view = plotting.view_stat_map(img, threshold=2, vmax=4)     # doctest: +SKIP
+    >>> img = datasets.fetch_localizer_button_task()['tmap']     # doctest: +SKIP
+    >>> html_view = plotting.view_img(img, threshold=2, vmax=4, cut_coords=[-42, -16, 52],
+    ...                                     title="Motor contrast")     # doctest: +SKIP
 
-in a Jupyter notebook, you can view the image like this:
+in a Jupyter notebook, if `html_view` is not requested, the viewer will be inserted in the notebook:
 
-.. image:: ../images/papaya_stat_map_plot_screenshot_notebook.png
+.. image:: ../images/view_img_screenshot_notebook.png
 
-Or you can open a viewer in your web browser if you are not in the
-notebook::
+Or you can open a viewer in your web browser if you are not in a notebook::
 
-    >>> view.open_in_browser()   # doctest: +SKIP
+    >>> html_view.open_in_browser()   # doctest: +SKIP
+
+Finally, you can also save the viewer as a stand-alone html file::
+
+    >>> html_view.save_as_html('viewer.html') # doctest: +SKIP

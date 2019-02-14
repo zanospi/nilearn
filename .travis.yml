@@ -15,10 +15,9 @@ matrix:
   # setting the status
   fast_finish: true
   allow_failures:
-    # allow_failures seems to be keyed on the python version
+    # allow_failures seems to be keyed on the python version.
     - python: 2.7
   include:
-    # Oldest supported versions (with neurodebian)
     - env: DISTRIB="conda" PYTHON_VERSION="2.7"
            NUMPY_VERSION="1.11.2" SCIPY_VERSION="0.17"
            SCIKIT_LEARN_VERSION="0.18" MATPLOTLIB_VERSION="1.5.1"
@@ -27,12 +26,6 @@ matrix:
     - env: DISTRIB="conda" PYTHON_VERSION="2.7"
            NUMPY_VERSION="1.11.2" SCIPY_VERSION="0.17"
            SCIKIT_LEARN_VERSION="0.18"
-    # Fake Ubuntu Xenial (Travis doesn't support Xenial yet)
-    - env: DISTRIB="conda" PYTHON_VERSION="2.7"
-           NUMPY_VERSION="1.13" SCIPY_VERSION="0.19"
-           SCIKIT_LEARN_VERSION="0.18.1"
-           NIBABEL_VERSION="2.0.2"
-    # Python 3.4 with intermediary versions
     - env: DISTRIB="conda" PYTHON_VERSION="3.4"
            NUMPY_VERSION="1.11.2" SCIPY_VERSION="0.17"
            SCIKIT_LEARN_VERSION="0.18" MATPLOTLIB_VERSION="1.5.1"
@@ -41,7 +34,16 @@ matrix:
            NUMPY_VERSION="*" SCIPY_VERSION="*" PANDAS_VERSION="*"
            SCIKIT_LEARN_VERSION="*" MATPLOTLIB_VERSION="*" COVERAGE="true"
            LXML_VERSION="*"
-    # FLAKE8 linting on diff wrt common ancestor with upstream/master
+    - env: DISTRIB="conda" PYTHON_VERSION="3.6"
+           NUMPY_VERSION="*" SCIPY_VERSION="*" PANDAS_VERSION="*"
+           SCIKIT_LEARN_VERSION="*" MATPLOTLIB_VERSION="*" COVERAGE="true"
+           LXML_VERSION="*"
+    - env: DISTRIB="conda" PYTHON_VERSION="3.7"
+           NUMPY_VERSION="*" SCIPY_VERSION="*" PANDAS_VERSION="*"
+           SCIKIT_LEARN_VERSION="*" MATPLOTLIB_VERSION="*" COVERAGE="true"
+           LXML_VERSION="*"
+
+  # FLAKE8 linting on diff wrt common ancestor with upstream/master
     # Note: the python value is only there to trigger allow_failures
     - python: 2.7
       env: DISTRIB="conda" PYTHON_VERSION="2.7" FLAKE8_VERSION="*" SKIP_TESTS="true"
